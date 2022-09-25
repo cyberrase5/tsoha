@@ -44,5 +44,6 @@ CREATE TABLE texts (
 CREATE TABLE choices (
 	id SERIAL PRIMARY KEY,
 	task_id INTEGER REFERENCES tasks,
-	choice TEXT
+	choice TEXT,
+	course_id INTEGER REFERENCES courses
 );
