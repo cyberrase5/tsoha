@@ -1,21 +1,23 @@
-En ole vielä lukenut materiaalia kokonaan ajatuksella läpi, mutta aion tehdä opetussovelluksen kuinka valita aihe-jutun kuvailemalla tavalla
+Välipalautus 2: https://tsoha-moodle2.herokuapp.com/
+Tajusin juuri, että Herokussa ei pääse näkemään taulujen sisältöä, eli ette pääse näkemään miten jutut lisääntyvät sinne.
+Ei siis hirveästi testattavaa tai toiminnallisuuksia, rekisteröinti lisää käyttäjän users-tauluun, mutta en ole ehtinyt tehdä tunnuksen yms. tarkistusta
 
-Alustava suunnitelma:
+TODO:
+admin _elif_ opiskelija _else_ epäkirjautunut session rakenne
+tunnus ja salasana tarkistus
+epäkirjautunut -> vain käyttäjille
+keksi tapa saada kätevästi session usernamesta id
 
-Tietokannan taulut: käyttäjät (nimet, numero, salasana[häshättynä?]), kurssit (nimi, max pisteet), osallistujat (kurssi_id ja käyttäjä_id pareja), tekstipalkit,
-palautukset (pistekirjanpito), monivalintatehtävät, kirjoitustehtävät (nämä varmaan muuttuvat jonkin verran)
+miten saada linkki kurssin sivulle
+miten saada kurssin sivulle lista tehtävistä ja teksteistä
+miten saada taskin id
 
-Sivut sovelluksessa: 
-avautuu kirjautumissivulle (linkki rekisteröitymiseen löytyy myös)
 
-etusivu käyttäjille: lista omista kursseista, nappi sivulle josta pääsee näkemmän kaikki kurssit, uloskirjautumisnappi
+Suunnitelma:
+Kurssisivulla lista tehtävistä kaikille
+Pistekirjanpito: opettajille opiskelija - pisteet - maxpisteet | opiskelijalle tehtävä - pisteet (viimeinen rivi yht.)
+Poista kurssi: poista kaikki missä course_id sama
 
-kurssisivu: lisätyt tekstilohkot ja tehtävät lisäämisjärjestyksessä, opettajille materiaalin lisäämisnappi (en tiedä voiko sen piilottaa jotenkin
-opiskelijoilta vai näkyykö kaikille ja oikeudet tarkistetaan, en tiedä), tilastonappi (opiskelijalle tehtävä - omatpisteet/maxpisteet,
-opettajalle opiskelijan nimi - pisteet/maxpisteet
-
-virhesivu dynaamisella tekstillä, paluunappi etusivulle (jos sisäänkirjautunut, muuten kirjautumissivulle)
-
-kaikki sivut sisältävät napin takaisin etusivulle
-
-arvelen jo tässä vaiheessa, että tehtävät tulevat aiheuttamaan ongelmia, taulujen sisältöä pitää miettiä vielä reilusti
+Etusivu:
+lista kursseista, joilla on
+linkki kaikkien kurssien sivuille
