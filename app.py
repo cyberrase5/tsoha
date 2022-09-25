@@ -27,3 +27,16 @@ def createC():
     db.session.execute(sql, {"name":name})
     db.session.commit()
     return render_template("createC.html", name=name)
+
+@app.route("/course/<int:id>")
+def course(id):
+    sql = "SELECT coursename FROM courses WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    coursename = result.fetchone()[0]
+    sql = "SELECT U.firstname FROM courses C, users U WHERE C.id=:id AND U.id=C.teacher_id"
+    result = db.session.execute(sql, {"id":id})
+    firstname = result.fetchone()[0]
+    sql = "SELECT U.lastname FROM courses C, users U WHERE C.id=:id AND U.id=C.teacher_id"
+    result = db.session.execute(sql, {"id":id})
+    lastname = result.fetchone()[0]
+    return render_template("course.html", coursename=coursename, fname=firstname, lname=lastname)
