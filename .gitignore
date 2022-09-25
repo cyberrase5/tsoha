@@ -1,0 +1,6 @@
+venv
+re
+sys
+__pycache__
+.env
+\033\033
