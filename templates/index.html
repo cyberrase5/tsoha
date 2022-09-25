@@ -1,4 +1,15 @@
-<title>Tämä on etusivu</title>
-<h1>Etusivu</h1>
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p><br><br>
+<a href="/createCourse">Luo uusi kurssi</a><br><br>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/login" method="POST">
+<p>Tunnus:<br>
+<input type="text" name="username"></p>
+<p>Salasana:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Kirjaudu">
 <br><br>
-<b>Tervetuloa</b> <i>sovellukseen</i>!
+<a href="/register">Rekisteröidy</a>
+</form>
+{% endif %}

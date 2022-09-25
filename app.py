@@ -15,6 +15,21 @@ app.secret_key = getenv("SECRET_KEY")
 def index():
     return render_template("index.html")
 
+@app.route("/login",methods=["POST"])
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+    # TODO: check username and password
+    
+    session["username"] = username
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
+
+
 @app.route("/register")
 def register():
     return render_template("register.html")
@@ -45,12 +60,12 @@ def createMulCho(id):
     return render_template("createMulCho.html")
 
 @app.route("/createMC", methods=(["POST"]))
-def createCourse():
+def createMC():
     return render_template("createMC.html")
 
-#@app.route("/createCourse")
-#def createCourse():
-#    return render_template("createCourse.html")
+@app.route("/createCourse")
+def createCourse():
+    return render_template("createCourse.html")
 
 @app.route("/createC", methods=(["POST"]))
 def createC():
