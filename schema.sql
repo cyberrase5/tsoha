@@ -3,13 +3,13 @@ CREATE TABLE users (
 	firstname TEXT,
  	lastname TEXT,
 	password TEXT,
-	isteacher BOOLEAN,
-	username TEXT
+	username TEXT UNIQUE,
+	isteacher BOOLEAN
 );
 
 CREATE TABLE courses (
 	id SERIAL PRIMARY KEY,
-	coursename TEXT,
+	coursename TEXT UNIQUE,
 	teacher_id INTEGER REFERENCES users,
 	taskcount INTEGER 
 );
