@@ -18,7 +18,7 @@ def login():
     if users.login(username, password):
         return redirect("/")
     else:
-        return render_template("error.html", message="Väärä käyttäjätunnus tai salasana (todennäköisesti")
+        return render_template("error.html", message="Väärä käyttäjätunnus tai salasana (todennäköisesti)")
     
 
 @app.route("/register", methods=["GET", "POST"])
@@ -44,6 +44,7 @@ def register():
 
 @app.route("/logout")
 def logout():
+    users.logout()
     return redirect("/")
 
 @app.route("/error")

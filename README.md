@@ -4,9 +4,9 @@ Ei siis hirveästi testattavaa tai toiminnallisuuksia, rekisteröinti lisää k�
 
 TODO:
 admin _elif_ opiskelija _else_ epäkirjautunut session rakenne
-tunnus ja salasana tarkistus
+VALMIS tunnus ja salasana tarkistus
 epäkirjautunut -> vain käyttäjille
-keksi tapa saada kätevästi session usernamesta id
+VALMIS keksi tapa saada kätevästi session usernamesta id
 
 miten saada linkki kurssin sivulle
 miten saada kurssin sivulle lista tehtävistä ja teksteistä
