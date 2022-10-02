@@ -47,6 +47,16 @@ def logout():
     users.logout()
     return redirect("/")
 
+@app.route("/createCourse", methods=["GET", "POST"])
+def createCourse():
+    if request.method == "GET":
+        return render_template("createCourse.html")
+    if request.method == "POST":
+        name=request.form("name")
+        desc=request.form("description")
+        users.create_course(name, desc)
+        
+
 @app.route("/error")
 def error():
     return render_template("error.html")

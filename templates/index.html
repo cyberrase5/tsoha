@@ -1,6 +1,8 @@
 {% if session.username %}
-<p>Olet kirjautunut nimellä {{ session.username }}</p><br><br>
+<p>Olet kirjautunut tunnuksella {{ session.username }}</p><br><br>
+{% if session.isteacher %}
 <a href="/createCourse">Luo uusi kurssi</a><br><br>
+{% endif %}
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <b>Moodle 2.0</b><br>

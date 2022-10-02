@@ -1,3 +1,7 @@
+{% if session.username %}
+Olet jo kirjautunut sisään<br>
+<a href="/">Etusivulle</a>
+{% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>
 <input type="text" name="username"></p>
@@ -5,3 +9,4 @@
 <input type="password" name="password"></p>
 <input type="submit" value="Kirjaudu">
 </form>
+{% endif %}
