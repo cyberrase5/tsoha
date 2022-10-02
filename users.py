@@ -40,10 +40,6 @@ def logout():
     del session["username"]
     del session["isteacher"]
 
-def create_course(name, description):
-    print()
-
-
     #aux functions
 
 def user_id():

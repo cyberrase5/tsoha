@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import users
+import users, courses
 
 @app.route("/")
 def index():
@@ -51,9 +51,12 @@ def createCourse():
     if request.method == "GET":
         return render_template("createCourse.html")
     if request.method == "POST":
-        name=request.form("name")
-        desc=request.form("description")
-        users.create_course(name, desc)
+        name=request.form["name"]
+        desc=request.form["description"]
+        if courses.create_course(name, desc):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="Virhe, samanniminen kurssi on jo olemassa, lisää esim. syksy 2022")
         
 
 @app.route("/error")
