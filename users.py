@@ -51,3 +51,11 @@ def username():
 def isteacher():
     return session.get("isteacher",0)
 
+def teacher_password():
+    return "pbkdf2:sha256:260000$ahsuNWMlcq4gtzY2$69036caf21529f0707f74dacd7f4cb335c6c415fadabdfc9232e4541757ea28a"
+    # generated with generate_password_hash("secret_teacher_password")
+
+
+def authenticate_teacherness(proof):
+    return check_password_hash(teacher_password(), proof)
+

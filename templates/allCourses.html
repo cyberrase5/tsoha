@@ -1,0 +1,11 @@
+{% if session.username %}
+<a href="/">Etusivulle</a><br>
+<hr>
+{% for course in list %}
+<a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br>
+<hr><br><br>
+{% endfor %}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}

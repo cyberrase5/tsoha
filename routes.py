@@ -29,12 +29,15 @@ def register():
         lastname=request.form["lastname"]
         username=request.form["username"]
         password = request.form["password"]
+        proof = request.form["teacherness"]
         role=int(request.form["type"])
         pos = "opiskelija"
         bool = False
         if role == 1:
             pos = "opettaja"
             bool = True
+            if users.authenticate_teacherness(proof) == False:
+                return render_template("error.html", message="Et ole oikeasti opettaja, et tiedä salasanaa")
 
         if users.register(firstname, lastname, password, username, bool):
             return render_template("reg.html", fname=firstname, lname=lastname, uname=username, role=pos)
@@ -45,6 +48,21 @@ def register():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/course/<int:id>")
+def course(id):
+    data = courses.course(id)
+    return render_template("course.html", id=id, data=data)
+
+@app.route("/allCourses")
+def allCourses():
+    list = courses.list_courses(1)
+    return render_template("allCourses.html", list=list)
+
+@app.route("/myCourses")
+def myCourses():
+    print()
+
 
 @app.route("/createCourse", methods=["GET", "POST"])
 def createCourse():
