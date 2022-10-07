@@ -83,6 +83,12 @@ def createCourse():
             return redirect("/")
         else:
             return render_template("error.html", message="Virhe, samanniminen kurssi on jo olemassa, lisää esim. syksy 2022")
+
+@app.route("/course/<int:id>/week/<int:week>")
+def week(id, week):
+    name = courses.course_name(id)
+    teacher = users.is_course_teacher(id, users.user_id())
+    return render_template("week.html", id=id, coursename=name, no=week, teacher=teacher)
         
 
 @app.route("/error")

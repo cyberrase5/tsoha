@@ -42,4 +42,14 @@ def list_courses(flag): # flag 0 = my courses, 1 = all courses
 
     return result.fetchall()
 
-    
+def week_texts(week):
+    print()
+
+
+def week_taskts(week):
+    print()
+
+def course_name(course_id):
+    sql = "SELECT coursename FROM courses WHERE id=:course_id"
+    result = db.session.execute(sql, {"course_id":course_id})
+    return result.fetchone()[0]

@@ -1,0 +1,11 @@
+{% if session.username %}
+<a href="/course/{{ id }}">Kurssisivulle</a><br><br>
+<b>{{ coursename }}</b> viikko {{ no }}<br>
+{% if teacher %}
+<a href="/">Luo uusi teksti</a>
+<a href="/">Luo uusi tehtävä</a><br>
+{% endif %}
+{% else %}
+Sinulla ei ole oikeuksia luoda kursseja<br>
+<a href="/">Etusivulle</a>
+{% endif %}
