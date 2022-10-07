@@ -2,9 +2,14 @@
 <a href="/course/{{ id }}">Kurssisivulle</a><br><br>
 <b>{{ coursename }}</b> viikko {{ no }}<br>
 {% if teacher %}
-<a href="/">Luo uusi teksti</a>
-<a href="/">Luo uusi tehtävä</a><br>
+<a href="/course/{{ id }}/week/{{ no }}/createText">Luo uusi teksti</a>
+<a href="/createMultipleChoice">Luo uusi tehtävä</a><br>
 {% endif %}
+<hr>
+{% for text in list %}
+<p>{{ text.content }}</p>
+<hr>
+{% endfor %}
 {% else %}
 Sinulla ei ole oikeuksia luoda kursseja<br>
 <a href="/">Etusivulle</a>

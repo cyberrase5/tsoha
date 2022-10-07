@@ -1,4 +1,3 @@
-from unittest import result
 from db import db
 from flask import session
 

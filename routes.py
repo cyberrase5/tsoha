@@ -1,6 +1,7 @@
+from asyncio import tasks
 from app import app
 from flask import render_template, request, redirect
-import users, courses
+import users, courses, tasks
 
 @app.route("/")
 def index():
@@ -88,7 +89,18 @@ def createCourse():
 def week(id, week):
     name = courses.course_name(id)
     teacher = users.is_course_teacher(id, users.user_id())
-    return render_template("week.html", id=id, coursename=name, no=week, teacher=teacher)
+    list = tasks.week_texts(id, week)
+    return render_template("week.html", id=id, coursename=name, no=week, teacher=teacher, list=list)
+
+@app.route("/course/<int:id>/week/<int:week>/createText", methods=["GET", "POST"])
+def createText(id, week):
+    if request.method == "GET":
+        return render_template("createText.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
+    if request.method == "POST":
+        content=request.form["text"]
+        tasks.createText(id, week, content)
+        return redirect("/course/" + str(id) + "/week/" + str(week))
+
         
 
 @app.route("/error")
