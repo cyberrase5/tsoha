@@ -52,7 +52,14 @@ def logout():
 @app.route("/course/<int:id>")
 def course(id):
     data = courses.course(id)
-    return render_template("course.html", id=id, data=data)
+    enrolled = users.is_enrolled(id, users.user_id())
+    teacher = users.is_course_teacher(id, users.user_id())
+    return render_template("course.html", id=id, data=data, enrolled=enrolled, isteacher=teacher)
+
+@app.route("/joinCourse/<int:id>")
+def joinCourse(id):
+    courses.join_course(id, users.user_id())
+    return redirect("/course/" + str(id))
 
 @app.route("/allCourses")
 def allCourses():
@@ -61,7 +68,8 @@ def allCourses():
 
 @app.route("/myCourses")
 def myCourses():
-    print()
+    list = courses.list_courses(0)
+    return render_template("myCourses.html", list=list)
 
 
 @app.route("/createCourse", methods=["GET", "POST"])

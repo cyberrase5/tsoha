@@ -1,1 +1,25 @@
-Tervetuloa kurssille {{ data.coursename }}<br>
+{% if session.username %}
+<a href="/">Etusivulle</a>
+    {% if not enrolled %}
+    <a href="/joinCourse/{{ id }}">Liity kurssille</a><br>
+    {% endif %}
+<br><b>{{ data.coursename }}</b><br>
+{{ data.description }}<br><br>
+    {% if enrolled %}
+    <a href="/course/{{ id }}/points">Pistetilanne</a>
+        {% if isteacher %}
+        <a href="/course/{{ id }}/delete">Poista kurssi</a>
+        {% endif %}
+    <hr>
+    <a href="/course/{{ id }}/week/1">Viikko 1</a><br><br>
+    <a href="/course/{{ id }}/week/2">Viikko 2</a><br><br>
+    <a href="/course/{{ id }}/week/3">Viikko 3</a><br><br>
+    <a href="/course/{{ id }}/week/4">Viikko 4</a><br><br>
+    <a href="/course/{{ id }}/week/5">Viikko 5</a><br><br>
+    <a href="/course/{{ id }}/week/6">Viikko 6</a><br>
+    <hr>
+    {% endif %}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}

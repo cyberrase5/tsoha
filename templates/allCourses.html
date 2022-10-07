@@ -1,5 +1,5 @@
 {% if session.username %}
-<a href="/">Etusivulle</a><br>
+<a href="/">Etusivulle</a><br><br>
 <hr>
 {% for course in list %}
 <a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br>

@@ -40,6 +40,23 @@ def logout():
     del session["username"]
     del session["isteacher"]
 
+
+def is_enrolled(course_id, user_id):
+    sql = "SELECT 1 FROM participants WHERE course_id=:course_id AND user_id=:user_id"
+    result = db.session.execute(sql, {"course_id":course_id, "user_id":user_id})
+    if result.fetchone():
+        return True
+
+    return False
+
+def is_course_teacher(course_id, teacher_id):
+    sql = "SELECT 1 FROM courses WHERE id=:course_id AND teacher_id=:teacher_id"
+    result = db.session.execute(sql, {"course_id":course_id, "teacher_id":teacher_id})
+    if result.fetchone():
+        return True
+
+    return False
+
     #aux functions
 
 def user_id():
