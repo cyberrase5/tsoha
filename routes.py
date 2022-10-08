@@ -1,4 +1,5 @@
 from asyncio import tasks
+from ctypes import pointer
 from app import app
 from flask import render_template, request, redirect
 import users, courses, tasks
@@ -52,10 +53,12 @@ def logout():
 
 @app.route("/course/<int:id>")
 def course(id):
-    data = courses.course(id)
+    name = courses.course(id)
     enrolled = users.is_enrolled(id, users.user_id())
     teacher = users.is_course_teacher(id, users.user_id())
-    return render_template("course.html", id=id, data=data, enrolled=enrolled, isteacher=teacher)
+    task_stats = courses.course_points_stats(id)
+    participants = courses.course_participants(id)
+    return render_template("course.html", id=id, data=name, enrolled=enrolled, isteacher=teacher, taskcount=task_stats[0], points=task_stats[1], parts=participants)
 
 @app.route("/joinCourse/<int:id>")
 def joinCourse(id):
@@ -133,6 +136,11 @@ def createMultipleChoice(id, week):
         task_id = tasks.create_MultipleChoice(id, question, answer, points, tries, week)
         tasks.add_choices(task_id, list, id)
         return redirect("/course/" + str(id) + "/week/" + str(week))
+
+
+@app.route("/course/<int:id>/week/<int:week>/tasks")
+def taskList(id, week):
+    print()
         
 
 @app.route("/error")

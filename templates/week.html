@@ -1,17 +1,18 @@
 {% if session.username %}
 <a href="/course/{{ id }}">Kurssisivulle</a><br><br>
-<b>{{ coursename }}</b> viikko {{ no }}<br>
+<b>{{ coursename }}</b> viikko {{ no }}<br><br>
 {% if teacher %}
 <a href="/course/{{ id }}/week/{{ no }}/createText">Luo uusi teksti</a>
 <a href="/course/{{ id }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
-<a href="/course/{{ id }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br>
+<a href="/course/{{ id }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br><br>
 {% endif %}
+<a href="/course/{{ id }}/week/{{ no }}/tasks">Tehtävät</a>
 <hr>
 {% for text in list %}
 <p>{{ text.content }}</p>
 <hr>
 {% endfor %}
 {% else %}
-Sinulla ei ole oikeuksia luoda kursseja<br>
+Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}

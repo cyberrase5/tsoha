@@ -5,6 +5,7 @@
     {% endif %}
 <br><b>{{ data.coursename }}</b><br>
 {{ data.description }}<br><br>
+Kurssilla on jaossa {{ points }} pistettä {{taskcount }} tehtävästä {{ parts }}:lle osallistujalle<br><br>
     {% if enrolled %}
     <a href="/course/{{ id }}/points">Pistetilanne</a>
         {% if isteacher %}

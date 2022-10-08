@@ -1,3 +1,4 @@
+from unittest import result
 from db import db
 from flask import session
 
@@ -45,10 +46,20 @@ def week_texts(week):
     print()
 
 
-def week_taskts(week):
+def week_tasks(week):
     print()
 
 def course_name(course_id):
     sql = "SELECT coursename FROM courses WHERE id=:course_id"
     result = db.session.execute(sql, {"course_id":course_id})
     return result.fetchone()[0]
+
+def course_participants(id):
+    sql = "SELECT COUNT(*)-1 FROM participants WHERE course_id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchone()[0]
+
+def course_points_stats(id):
+    sql = "SELECT COUNT(*), COALESCE(SUM(maxpoints), 0) FROM tasks WHERE course_id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchone()
