@@ -27,7 +27,8 @@ CREATE TABLE tasks (
 	correctanswer TEXT,
 	maxpoints INTEGER,
 	max_tries INTEGER,
-	week INTEGER
+	week INTEGER,
+	type INTEGER
 );
 
 CREATE TABLE submissions (
