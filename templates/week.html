@@ -3,7 +3,8 @@
 <b>{{ coursename }}</b> viikko {{ no }}<br>
 {% if teacher %}
 <a href="/course/{{ id }}/week/{{ no }}/createText">Luo uusi teksti</a>
-<a href="/createMultipleChoice">Luo uusi tehtävä</a><br>
+<a href="/course/{{ id }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
+<a href="/course/{{ id }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br>
 {% endif %}
 <hr>
 {% for text in list %}

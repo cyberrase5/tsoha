@@ -1,0 +1,24 @@
+{% if session.username %}
+{% if teacher %}
+<form action="/course/{{id}}/week/{{no}}/createQA" method="POST">
+    <p>Luo uusi tehtävä:<br><br>
+    <p>Kysymys:<br>
+    <textarea name="question" rows="2" cols="50"></textarea><br>
+    <br><br>
+    <p>Oikea vastaus<br>
+    <input type="text" name="answer"></p><br><br>
+    Kuinka monta kertaa tehtävää saa yrittää?:<br>
+    <input type="text" name="tries"></p><br>
+    Kuinka monta pistettä tehtävästä saa? (ei negatiivisia pisteitä):<br>
+    <input type="text" name="points"></p><br><br>
+    <input type="submit" value="Luo tehtävä">
+    </form>
+{% endif %}
+{% if not teacher %}
+Sinulla ei ole oikeuksia luoda tehtäviä<br>
+<a href="/">Etusivulle</a>
+{% endif %}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}

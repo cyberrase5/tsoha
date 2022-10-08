@@ -98,9 +98,30 @@ def createText(id, week):
         return render_template("createText.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
     if request.method == "POST":
         content=request.form["text"]
-        tasks.createText(id, week, content)
+        tasks.create_text(id, week, content)
         return redirect("/course/" + str(id) + "/week/" + str(week))
 
+@app.route("/course/<int:id>/week/<int:week>/createQA", methods=["GET", "POST"])
+def createQA(id, week):
+    if request.method == "GET":
+        return render_template("createQA.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
+    if request.method == "POST":
+        question=request.form["question"]
+        answer=request.form["answer"]
+        tries=request.form["tries"]
+        points=request.form["points"]
+        if int(points) < 0:
+            return render_template("error.html", message="Pisteet eivät voi olla negatiivisia")
+
+        tasks.create_QA(id, question, answer, points, tries, week)
+        return redirect("/course/" + str(id) + "/week/" + str(week))
+
+@app.route("/course/<int:id>/week/<int:week>/createMultipleChoice", methods=["GET", "POST"])
+def createMultipleChoice(id, week):
+    if request.method == "GET":
+        return render_template("createMultipleChoice.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
+    if request.method == "POST":
+        return redirect("/course/" + str(id) + "/week/" + str(week))
         
 
 @app.route("/error")

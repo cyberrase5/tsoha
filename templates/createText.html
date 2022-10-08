@@ -1,12 +1,14 @@
+{% if session.username %}
 {% if teacher %}
 <form action="/course/{{id}}/week/{{no}}/createText" method="POST">
     <p>Kirjoita tiivis yksittäinen kokonaisuus:<br>
-        <textarea name="text"rows="4" cols="50"></textarea><br>
+        <textarea name="text" rows="4" cols="50"></textarea><br>
         <input type="submit" value="Lisää teksti"><br><br>
         <a href="/course/{{id}}/week/{{no}}">Takaisin</a>
 </form>
-{% if session.username and not teacher %}
-Sinulla ei ole oikeuksia luoda tehtäviä<br>
+{% endif %}
+{% if not teacher %}
+Sinulla ei ole oikeuksia luoda materiaaleja<br>
 <a href="/">Etusivulle</a>
 {% endif %}
 {% else %}
