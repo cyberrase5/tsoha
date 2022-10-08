@@ -18,10 +18,15 @@ def create_QA(id, question, answer, points, tries, week): # type 0 = question an
     db.session.execute(sql, {"id":id, "question":question, "answer":answer, "points":points, "tries":tries, "week":week})
     db.session.commit()
 
-def create_MultipleChoice(id, question, answer, points, tries, week): # type 0 = question and answer task
-    sql = "INSERT INTO tasks (course_id, question, correctanswer, maxpoints, max_tries, week, type) VALUES (:id, :question, :answer, :points, :tries, :week, 0)"
-    db.session.execute(sql, {"id":id, "question":question, "answer":answer, "points":points, "tries":tries, "week":week})
+def create_MultipleChoice(id, question, answer, points, tries, week): # type 1 = multiple choice task, returns task id
+    sql = "INSERT INTO tasks (course_id, question, correctanswer, maxpoints, max_tries, week, type) VALUES (:id, :question, :answer, :points, :tries, :week, 1) RETURNING id"
+    result = db.session.execute(sql, {"id":id, "question":question, "answer":answer, "points":points, "tries":tries, "week":week})
     db.session.commit()
+    return result.fetchone()[0]
 
-def add_choices():
-    print()
+def add_choices(task_id, list, course_id):
+    for choice in list:
+        sql = "INSERT INTO choices (task_id, choice, course_id) VALUES (:task_id, :choice, :course_id)"
+        db.session.execute(sql, {"task_id":task_id, "choice":choice, "course_id":course_id})
+
+    db.session.commit()

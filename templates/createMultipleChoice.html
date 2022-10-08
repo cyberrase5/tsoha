@@ -1,20 +1,24 @@
 {% if session.username %}
 {% if teacher %}
-<form action="/course/{{id}}/week/{{no}}/createMulitpleChoice" method="POST">
+<form action="/course/{{id}}/week/{{no}}/createMultipleChoice" method="POST">
     <p>Luo uusi monivalintatehtävä:<br><br>
     <p>Kysymys:<br>
-    <input type="text" name="topic"></p>
+    <input type="text" name="question"></p>
     <p>Vaihtoehto 1:<br>
-    <input type="text" name="answer"></p>
+    <input type="text" name="choice"></p>
     <p>Vaihtoehto 2:<br>
-    <input type="text" name="answer"></p>
+    <input type="text" name="choice"></p>
     <p>Vaihtoehto 3:<br>
-    <input type="text" name="answer"></p>
+    <input type="text" name="choice"></p>
     <p>Vaihtoehto 4:<br>
-    <input type="text" name="answer"></p>
-    <br><br>
+    <input type="text" name="choice"></p>
+    <br>
     <p>Oikea vastaus<br>
-    <input type="text" name="correctAnswer"></p><br>
+    <input type="text" name="answer"></p><br><br>
+    Kuinka monta kertaa tehtävää saa yrittää?:<br>
+    <input type="text" name="tries"></p><br>
+    Kuinka monta pistettä tehtävästä saa? (ei negatiivisia pisteitä):<br>
+    <input type="text" name="points"></p><br><br>
     <input type="submit" value="Luo monivalintatehtävä">
     </form>
 {% endif %}

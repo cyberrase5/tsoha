@@ -121,6 +121,17 @@ def createMultipleChoice(id, week):
     if request.method == "GET":
         return render_template("createMultipleChoice.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
     if request.method == "POST":
+        question=request.form["question"]
+        answer=request.form["answer"]
+        tries=request.form["tries"]
+        points=request.form["points"]
+        list=request.form.getlist("choice")
+
+        if int(points) < 0:
+            return render_template("error.html", message="Pisteet eivät voi olla negatiivisia")
+
+        task_id = tasks.create_MultipleChoice(id, question, answer, points, tries, week)
+        tasks.add_choices(task_id, list, id)
         return redirect("/course/" + str(id) + "/week/" + str(week))
         
 
