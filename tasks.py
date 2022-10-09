@@ -15,9 +15,10 @@ def week_texts(course_id, week):
     return result.fetchall()
 
 def create_QA(id, question, answer, points, tries, week): # type 0 = question and answer task
-    sql = "INSERT INTO tasks (course_id, question, correctanswer, maxpoints, max_tries, week, type) VALUES (:id, :question, :answer, :points, :tries, :week, 0)"
-    db.session.execute(sql, {"id":id, "question":question, "answer":answer, "points":points, "tries":tries, "week":week})
+    sql = "INSERT INTO tasks (course_id, question, correctanswer, maxpoints, max_tries, week, type) VALUES (:id, :question, :answer, :points, :tries, :week, 0) RETURNING id"
+    result = db.session.execute(sql, {"id":id, "question":question, "answer":answer, "points":points, "tries":tries, "week":week})
     db.session.commit()
+    return result.fetchone()[0]
 
 def create_MultipleChoice(id, question, answer, points, tries, week): # type 1 = multiple choice task, returns task id
     sql = "INSERT INTO tasks (course_id, question, correctanswer, maxpoints, max_tries, week, type) VALUES (:id, :question, :answer, :points, :tries, :week, 1) RETURNING id"
@@ -40,4 +41,27 @@ def QA_tasks(id, week): # type 0
 def delete_from_submissions(course_id, user_id):
     sql = "DELETE FROM submissions WHERE course_id=:course_id AND user_id=:user_id"
     db.session.execute(sql, {"course_id":course_id, "user_id":user_id})
+    db.session.commit()
+
+def course_tasks(course_id):
+    sql = "SELECT id FROM tasks where course_id=:course_id"
+    result = db.session.execute(sql, {"course_id":course_id})
+    return result.fetchall()
+
+def add_submissions_old(course_id, user_id):
+    list = course_tasks(course_id)
+
+    for id in list:
+        sql = "INSERT INTO submissions (course_id, user_id, task_id, tries, points) VALUES (:cid, :uid, :tid, 0, 0)"
+        db.session.execute(sql, {"cid":course_id, "uid":user_id, "tid":id[0]})
+
+    db.session.commit()
+
+def add_submissions_new(course_id, task_id):
+    list = courses.participants_IDs(course_id)
+
+    for id in list:
+        sql = "INSERT INTO submissions (course_id, user_id, task_id, tries, points) VALUES (:cid, :uid, :tid, 0, 0)"
+        db.session.execute(sql, {"cid":course_id, "uid":id[0], "tid":task_id})
+
     db.session.commit()

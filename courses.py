@@ -1,4 +1,3 @@
-from unittest import result
 from db import db
 from flask import session
 
@@ -54,7 +53,7 @@ def course_name(course_id):
     result = db.session.execute(sql, {"course_id":course_id})
     return result.fetchone()[0]
 
-def course_participants(id):
+def participants_count(id):
     sql = "SELECT COUNT(*)-1 FROM participants WHERE course_id=:id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchone()[0]
@@ -68,3 +67,8 @@ def delete_course(id):
     sql = "DELETE FROM courses WHERE id=:id"
     db.session.execute(sql, {"id":id})
     db.session.commit()
+
+def participants_IDs(id):
+    sql = "SELECT user_id FROM participants WHERE course_id=:course_id"
+    result = db.session.execute(sql, {"course_id":id})
+    return result.fetchall()

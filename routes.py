@@ -57,12 +57,14 @@ def course(id):
     enrolled = users.is_enrolled(id, users.user_id())
     teacher = users.is_course_teacher(id, users.user_id())
     task_stats = courses.course_points_stats(id)
-    participants = courses.course_participants(id)
+    participants = courses.participants_count(id)
     return render_template("course.html", id=id, data=name, enrolled=enrolled, isteacher=teacher, taskcount=task_stats[0], points=task_stats[1], parts=participants)
 
 @app.route("/joinCourse/<int:id>")
 def joinCourse(id):
-    courses.join_course(id, users.user_id())
+    user_id=users.user_id()
+    courses.join_course(id, user_id)
+    tasks.add_submissions_old(id, user_id)
     return redirect("/course/" + str(id))
 
 @app.route("/allCourses")
@@ -113,10 +115,11 @@ def createQA(id, week):
         answer=request.form["answer"]
         tries=request.form["tries"]
         points=request.form["points"]
-        if int(points) < 0:
-            return render_template("error.html", message="Pisteet eivät voi olla negatiivisia")
+        if int(points) < 1:
+            return render_template("error.html", message="Tehtävästä pitää saada vähintään yksi piste")
 
-        tasks.create_QA(id, question, answer, points, tries, week)
+        task_id = tasks.create_QA(id, question, answer, points, tries, week)
+        tasks.add_submissions_new(id, task_id)
         return redirect("/course/" + str(id) + "/week/" + str(week))
 
 @app.route("/course/<int:id>/week/<int:week>/createMultipleChoice", methods=["GET", "POST"])
@@ -130,11 +133,12 @@ def createMultipleChoice(id, week):
         points=request.form["points"]
         list=request.form.getlist("choice")
 
-        if int(points) < 0:
-            return render_template("error.html", message="Pisteet eivät voi olla negatiivisia")
+        if int(points) < 1:
+            return render_template("error.html", message="Tehtävästä pitää saada vähintään yksi piste")
 
         task_id = tasks.create_MultipleChoice(id, question, answer, points, tries, week)
         tasks.add_choices(task_id, list, id)
+        tasks.add_submissions_new(id, task_id)
         return redirect("/course/" + str(id) + "/week/" + str(week))
 
 
