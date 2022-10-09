@@ -41,12 +41,6 @@ def list_courses(flag): # flag 0 = my courses, 1 = all courses
 
     return result.fetchall()
 
-def week_texts(week):
-    print()
-
-
-def week_tasks(week):
-    print()
 
 def course_name(course_id):
     sql = "SELECT coursename FROM courses WHERE id=:course_id"
@@ -74,8 +68,7 @@ def participants_IDs(id):
     return result.fetchall()
 
 def all_points(id):
-    sql = "SELECT U.firstname, U.lastname, SUM(S.points), SUM(T.maxpoints) "\
-        "FROM tasks T, submissions S, users U WHERE S.course_id=:id AND S.course_id=T.course_id AND U.id=S.user_id GROUP BY U.lastname, U.firstname"
+    sql = "SELECT U.firstname, U.lastname, SUM(S.points) FROM users U, submissions S WHERE S.course_id=:id AND U.id=S.user_id GROUP BY U.lastname, U.firstname;"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 

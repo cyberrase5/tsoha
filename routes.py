@@ -144,9 +144,11 @@ def createMultipleChoice(id, week):
 
 @app.route("/course/<int:id>/week/<int:week>/tasks")
 def taskList(id, week):
-    list = tasks.QA_tasks(id, week, users.user_id())
+    user_id=users.user_id()
+    QA_list = tasks.QA_tasks(id, week, user_id)
+    MC_list = tasks.MC_tasks(id, week, user_id)
     name = courses.course_name(id)
-    return render_template("tasks.html", no=id, coursename=name, list=list, week=week)
+    return render_template("tasks.html", no=id, coursename=name, QA_list=QA_list, week=week, MC_list=MC_list, i=0, len=int(len(MC_list)/4))
 
 @app.route("/course/<int:id>/leave")
 def leave(id):
@@ -202,6 +204,27 @@ def QA():
         else:
             return render_template("error.html", message="Väärä vastaus", id=id, week=week)
 
+@app.route("/MC", methods=["POST"])
+def MC():
+    if request.method == "POST":
+        answer_choice_id=int(request.form["choice"])
+        task_id=int(request.form["task_id"])
+        tries=request.form["tries"]
+        maxtries=request.form["maxtries"]
+        maxpoints=request.form["maxpoints"]
+        id=request.form["course_id"]
+        week=request.form["week"]
+
+        if tries >= maxtries:
+            return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
+
+        user_id=users.user_id()
+        tasks.add_submission_try(task_id, user_id)
+        if tasks.choice_text(answer_choice_id) == tasks.correct_answer(task_id):
+            tasks.update_points(task_id, user_id, maxpoints)
+            return render_template("correct.html", points=maxpoints, id=id, week=week)
+        else:
+            return render_template("error.html", message="Väärä vastaus", id=id, week=week)
 
 
 @app.route("/error")

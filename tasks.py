@@ -1,4 +1,3 @@
-from unittest import result
 from db import db
 from flask import session
 
@@ -76,10 +75,19 @@ def add_submission_try(task_id, user_id):
     sql = "UPDATE submissions SET tries=tries+1 WHERE task_id=:task_id AND user_id=:user_id"
     db.session.execute(sql, {"task_id":task_id, "user_id":user_id})
     db.session.commit()
-    print("Käy 1")
 
 def update_points(task_id, user_id, points):
     sql = "UPDATE submissions SET points=:points WHERE task_id=:task_id AND user_id=:user_id"
     db.session.execute(sql, {"points":points, "task_id":task_id, "user_id":user_id})
     db.session.commit()
-    print("Käy 2")
+
+def MC_tasks(course_id, week, user_id): # type 1
+    sql = "SELECT T.id, C.id, T.question, T.maxpoints, T.max_tries, C.choice, S.tries, S.points, T.week FROM tasks T, choices C, submissions S "\
+        "WHERE T.course_id=:id AND T.id=C.task_id AND T.week=:week AND S.task_id=T.id AND S.user_id=:user_id AND T.type=1 ORDER BY C.id"
+    result = db.session.execute(sql, {"id":course_id, "week":week, "user_id":user_id})
+    return result.fetchall()
+
+def choice_text(id):
+    sql = "SELECT choice FROM choices WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchone()[0]
