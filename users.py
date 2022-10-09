@@ -57,6 +57,12 @@ def is_course_teacher(course_id, teacher_id):
 
     return False
 
+
+def leave_course(course_id, user_id):
+    sql = "DELETE FROM participants WHERE course_id=:course_id AND user_id=:user_id"
+    db.session.execute(sql, {"course_id":course_id, "user_id":user_id})
+    db.session.commit()
+
     #aux functions
 
 def user_id():

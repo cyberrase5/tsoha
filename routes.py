@@ -140,7 +140,17 @@ def createMultipleChoice(id, week):
 
 @app.route("/course/<int:id>/week/<int:week>/tasks")
 def taskList(id, week):
-    print()
+    list = tasks.QA_tasks(id, week)
+    name = courses.course_name(id)
+    return render_template("tasks.html", no=id, coursename=name, list=list, week=week)
+
+@app.route("/course/<int:id>/leave")
+def leave(id):
+    user_id=users.user_id()
+    tasks.delete_from_submissions(id, user_id)
+    users.leave_course(id, user_id)
+
+    return redirect("/course/" + str(id))
         
 
 @app.route("/error")

@@ -1,0 +1,17 @@
+{% if session.username %}
+<a href="/course/{{ no }}">Kurssisivulle</a><br><br>
+<b>{{ coursename }}</b> viikko {{ week }} tehtävät<br><br>
+<hr>
+{% for task in list %}
+    <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
+    <br>
+    <p>Vastaus<br>
+    <input type="text" name="answer"></p>
+    <input type="submit" value="Lähetä vastaus">
+    </form>
+    <hr>
+{% endfor %}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}

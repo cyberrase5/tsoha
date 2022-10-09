@@ -20,6 +20,9 @@ Kurssilla on jaossa {{ points }} pistettä {{taskcount }} tehtävästä {{ parts
     <a href="/course/{{ id }}/week/6">Viikko 6</a><br>
     <hr>
     {% endif %}
+    {% if enrolled and not isteacher %}
+    <a href="/course/{{ id }}/leave">Poistu kurssilta</a><br><br>
+    {% endif %}
 {% else %}
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>

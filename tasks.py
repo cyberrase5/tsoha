@@ -1,3 +1,4 @@
+from unittest import result
 from db import db
 from flask import session
 
@@ -29,4 +30,14 @@ def add_choices(task_id, list, course_id):
         sql = "INSERT INTO choices (task_id, choice, course_id) VALUES (:task_id, :choice, :course_id)"
         db.session.execute(sql, {"task_id":task_id, "choice":choice, "course_id":course_id})
 
+    db.session.commit()
+
+def QA_tasks(id, week): # type 0
+    sql = "SELECT question, correctanswer, maxpoints, max_tries FROM tasks WHERE course_id=:id AND week=:week AND type=0"
+    result = db.session.execute(sql, {"id":id, "week":week})
+    return result.fetchall()
+
+def delete_from_submissions(course_id, user_id):
+    sql = "DELETE FROM submissions WHERE course_id=:course_id AND user_id=:user_id"
+    db.session.execute(sql, {"course_id":course_id, "user_id":user_id})
     db.session.commit()
