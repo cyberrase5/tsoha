@@ -1,13 +1,28 @@
 {% if session.username %}
-<a href="/course/{{ no }}">Kurssisivulle</a><br><br>
+<a href="/course/{{ no }}/week/{{ week }}">Kurssisivulle</a><br><br>
 <b>{{ coursename }}</b> viikko {{ week }} tehtävät<br><br>
 <hr>
 {% for task in list %}
+    <form action="/QA" method="POST">
     <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
-    <br>
+    <br>Yrityksiä: {{ task[5] }} / {{ task[4] }}
     <p>Vastaus<br>
     <input type="text" name="answer"></p>
+    {% if task[6] != task[3] and task.tries < task.max_tries %}
     <input type="submit" value="Lähetä vastaus">
+    {% endif %}<br>
+    {% if task[6] == task[3] %}
+    Olet ratkaissut tehtävän
+    {% endif %}<br>
+    {% if task.tries >= task.max_tries %}
+    Olet yrittänyt tehtävää liian monta kertaa
+    {% endif %}<br>
+    <input type="hidden" name="task_id" value="{{ task.id }}">
+    <input type="hidden" name="tries" value="{{ task[5] }}">
+    <input type="hidden" name="maxtries" value="{{ task[4] }}">
+    <input type="hidden" name="maxpoints" value="{{ task.maxpoints }}">
+    <input type="hidden" name="id" value="{{ no }}">
+    <input type="hidden" name="week" value="{{ week }}">
     </form>
     <hr>
 {% endfor %}

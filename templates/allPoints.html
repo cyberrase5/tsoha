@@ -2,7 +2,7 @@
 <a href="/course/{{ id }}">Kurssisivulle</a><br><br>
 {% if teacher %}
 {% for data in list %}
-{{ data.firstname }} {{ data.lastname }}   {{ data[2] }} / {{ data[3] }}<br><br>
+{{ data.firstname }} {{ data.lastname }}   {{ data[2] }} / {{ maxpoints }}<br><br>
 {% endfor %}
 {% endif %}
 {% if not teacher %}

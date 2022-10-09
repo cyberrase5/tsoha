@@ -33,9 +33,10 @@ def add_choices(task_id, list, course_id):
 
     db.session.commit()
 
-def QA_tasks(id, week): # type 0
-    sql = "SELECT question, correctanswer, maxpoints, max_tries FROM tasks WHERE course_id=:id AND week=:week AND type=0"
-    result = db.session.execute(sql, {"id":id, "week":week})
+def QA_tasks(id, week, user_id): # type 0
+    sql = "SELECT T.id, T.question, T.correctanswer, T.maxpoints, T.max_tries, S.tries, S.points  "\
+        "FROM tasks T, submissions S WHERE T.course_id=:id AND T.week=:week AND T.type=0 AND S.task_id=T.id AND S.user_id=:uid"
+    result = db.session.execute(sql, {"id":id, "week":week, "uid":user_id})
     return result.fetchall()
 
 def delete_from_submissions(course_id, user_id):
@@ -65,3 +66,20 @@ def add_submissions_new(course_id, task_id):
         db.session.execute(sql, {"cid":course_id, "uid":id[0], "tid":task_id})
 
     db.session.commit()
+
+def correct_answer(id):
+    sql = "SELECT correctanswer FROM tasks WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchone()[0]
+
+def add_submission_try(task_id, user_id):
+    sql = "UPDATE submissions SET tries=tries+1 WHERE task_id=:task_id AND user_id=:user_id"
+    db.session.execute(sql, {"task_id":task_id, "user_id":user_id})
+    db.session.commit()
+    print("Käy 1")
+
+def update_points(task_id, user_id, points):
+    sql = "UPDATE submissions SET points=:points WHERE task_id=:task_id AND user_id=:user_id"
+    db.session.execute(sql, {"points":points, "task_id":task_id, "user_id":user_id})
+    db.session.commit()
+    print("Käy 2")

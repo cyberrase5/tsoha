@@ -85,6 +85,6 @@ def my_points(course_id, user_id):
     return result.fetchall()
 
 def my_points_summary(course_id, user_id):
-    sql = "SELECT SUM(S.points), SUM(T.maxpoints) FROM tasks T, submissions S WHERE T.course_id=:cid AND S.user_id=:uid AND T.id=S.task_id;"
+    sql = "SELECT SUM(S.points), SUM(T.maxpoints) FROM tasks T, submissions S WHERE T.course_id=:cid AND S.user_id=:uid AND T.id=S.task_id"
     result = db.session.execute(sql, {"cid":course_id, "uid":user_id})
     return result.fetchall()

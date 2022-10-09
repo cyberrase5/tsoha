@@ -144,7 +144,7 @@ def createMultipleChoice(id, week):
 
 @app.route("/course/<int:id>/week/<int:week>/tasks")
 def taskList(id, week):
-    list = tasks.QA_tasks(id, week)
+    list = tasks.QA_tasks(id, week, users.user_id())
     name = courses.course_name(id)
     return render_template("tasks.html", no=id, coursename=name, list=list, week=week)
 
@@ -164,9 +164,11 @@ def delete(id):
 
 @app.route("/course/<int:id>/allPoints")
 def allPoints(id):
+    user_id = users.user_id()
     list = courses.all_points(id)
-    teacher=users.is_course_teacher(id, users.user_id())
-    return render_template("allPoints.html", id=id, list=list, teacher=teacher)
+    teacher=users.is_course_teacher(id, user_id)
+    maxpoints = courses.my_points_summary(id, user_id)
+    return render_template("allPoints.html", id=id, list=list, teacher=teacher, maxpoints=maxpoints[0][1])
 
 
 @app.route("/course/<int:id>/myPoints")
@@ -176,6 +178,29 @@ def myPoints(id):
     list = courses.my_points(id, user_id)
     summary = courses.my_points_summary(id, user_id)
     return render_template("myPoints.html", id=id, list=list, enrolled=enrolled, summary=summary)
+
+
+@app.route("/QA", methods=["POST"])
+def QA():
+    if request.method == "POST":
+        answer=request.form["answer"]
+        task_id=request.form["task_id"]
+        tries=request.form["tries"]
+        maxtries=request.form["maxtries"]
+        maxpoints=request.form["maxpoints"]
+        id=request.form["id"]
+        week=request.form["week"]
+        if tries >= maxtries:
+            return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
+
+        correct_answer=tasks.correct_answer(task_id)
+        user_id=users.user_id()
+        tasks.add_submission_try(task_id, user_id)
+        if answer == correct_answer:
+            tasks.update_points(task_id, user_id, maxpoints)
+            return render_template("correct.html", points=maxpoints, id=id, week=week)
+        else:
+            return render_template("error.html", message="Väärä vastaus", id=id, week=week)
 
 
 
