@@ -153,6 +153,13 @@ def leave(id):
     return redirect("/course/" + str(id))
         
 
+@app.route("/course/<int:id>/delete")
+def delete(id):
+    courses.delete_course(id)
+    return redirect("/allCourses")
+
+
+
 @app.route("/error")
 def error():
     return render_template("error.html")

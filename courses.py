@@ -63,3 +63,8 @@ def course_points_stats(id):
     sql = "SELECT COUNT(*), COALESCE(SUM(maxpoints), 0) FROM tasks WHERE course_id=:id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchone()
+
+def delete_course(id):
+    sql = "DELETE FROM courses WHERE id=:id"
+    db.session.execute(sql, {"id":id})
+    db.session.commit()
