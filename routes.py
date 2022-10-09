@@ -162,6 +162,21 @@ def delete(id):
     courses.delete_course(id)
     return redirect("/allCourses")
 
+@app.route("/course/<int:id>/allPoints")
+def allPoints(id):
+    list = courses.all_points(id)
+    teacher=users.is_course_teacher(id, users.user_id())
+    return render_template("allPoints.html", id=id, list=list, teacher=teacher)
+
+
+@app.route("/course/<int:id>/myPoints")
+def myPoints(id):
+    user_id=users.user_id()
+    enrolled=users.is_enrolled(id, user_id)
+    list = courses.my_points(id, user_id)
+    summary = courses.my_points_summary(id, user_id)
+    return render_template("myPoints.html", id=id, list=list, enrolled=enrolled, summary=summary)
+
 
 
 @app.route("/error")

@@ -7,7 +7,10 @@
 {{ data.description }}<br><br>
 Kurssilla on jaossa {{ points }} pistettä {{taskcount }} tehtävästä {{ parts }}:lle osallistujalle<br><br>
 {% if enrolled %}
-<a href="/course/{{ id }}/points">Pistetilanne</a>
+<a href="/course/{{ id }}/myPoints">Omat pisteet</a>
+{% if isteacher %}
+<a href="/course/{{ id }}/allPoints">Kaikki pisteet</a>
+{% endif %}
 <hr>
 <a href="/course/{{ id }}/week/1">Viikko 1</a><br><br>
 <a href="/course/{{ id }}/week/2">Viikko 2</a><br><br>

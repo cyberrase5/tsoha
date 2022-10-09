@@ -1,0 +1,10 @@
+{% if session.username %}
+<a href="/course/{{ id }}">Kurssisivulle</a><br><br>
+{% for data in list %}
+{{ data.question }}   -   {{ data.points }} / {{ data.maxpoints }}<br>
+{% endfor %}
+<br>Yhteenveto: {{ summary[0][0] }} / {{ summary[0][1] }}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}

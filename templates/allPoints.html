@@ -1,0 +1,14 @@
+{% if session.username %}
+<a href="/course/{{ id }}">Kurssisivulle</a><br><br>
+{% if teacher %}
+{% for data in list %}
+{{ data.firstname }} {{ data.lastname }}   {{ data[2] }} / {{ data[3] }}<br><br>
+{% endfor %}
+{% endif %}
+{% if not teacher %}
+Tämä alue on vain kurssin opettajalle<br>
+{% endif %}
+{% else %}
+Kirjaudu sisään päästäksesi alueelle<br>
+<a href="/">Etusivulle</a>
+{% endif %}
