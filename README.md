@@ -1,23 +1,24 @@
-Välipalautus 2: https://tsoha-moodle2.herokuapp.com/
-Tajusin juuri, että Herokussa ei pääse näkemään taulujen sisältöä, eli ette pääse näkemään miten jutut lisääntyvät sinne.
-Ei siis hirveästi testattavaa tai toiminnallisuuksia, rekisteröinti lisää käyttäjän users-tauluun, mutta en ole ehtinyt tehdä tunnuksen yms. tarkistusta
+https://tsoha-moodle2.herokuapp.com/
+Välipalautus 3: nykyiset toiminnot
+- luo käyttäjä, kirjaudu sisään
+- luo kurssi (opettajille)
+- lisää tehtäviä ja tekstejä (vain kurssin opettajalle)
+- ratkaise tehtäviä
+- tarkista pistetilanne (opiskelija -> omat, opettaja -> kaikkien)
+- liity ja poistu kurssilta (opettaja ei voi poistua omalta kurssiltaan(?))
+
+Johdatus tietojenkäsittelytieteeseen viikko 1 sisältää pari valmista tehtävää ja tekstiä
+
+Sana, jolla opettajuus todistetaan: harri
+
+En ole tarkastanut ihan kaikista sivuista, ettei väärät käyttäjät pääse vain opettajille tarkoitettuihin toimintoihin, mutta niihin ei ainakaan pitäisi olla suoria nappeja
+
+Python ja HTML eivät olleet entuudestaan tuttuja, joten koodi näyttää nyt miltä näyttää, pitää siistiä ennen lopullista palautusta
 
 TODO:
-admin _elif_ opiskelija _else_ epäkirjautunut session rakenne
-VALMIS tunnus ja salasana tarkistus
-epäkirjautunut -> vain käyttäjille
-VALMIS keksi tapa saada kätevästi session usernamesta id
-
-miten saada linkki kurssin sivulle
-miten saada kurssin sivulle lista tehtävistä ja teksteistä
-miten saada taskin id
-
-
-Suunnitelma:
-Kurssisivulla lista tehtävistä kaikille
-Pistekirjanpito: opettajille opiskelija - pisteet - maxpisteet | opiskelijalle tehtävä - pisteet (viimeinen rivi yht.)
-Poista kurssi: poista kaikki missä course_id sama
-
-Etusivu:
-lista kursseista, joilla on
-linkki kaikkien kurssien sivuille
+- syötteiden pituuden tarkastaminen
+- miten saan liian pitkät tekstit useammalle riville?
+- CSRF token formeihin
+- kommentoi oudot kohdat (tasks.html)
+- python koodin siistiminen (pylint, lue ohjeet yms.)
+- HTML-siistiminen
