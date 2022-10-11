@@ -161,6 +161,8 @@ def leave(id):
 
 @app.route("/course/<int:id>/delete")
 def delete(id):
+    if not users.is_course_teacher(id, users.user_id()):
+        return render_template("error.html", message="Virhe, sinulla ei ole oikeuksia poistaa tätä tätä kurssia")
     courses.delete_course(id)
     return redirect("/allCourses")
 
