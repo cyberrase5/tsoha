@@ -14,8 +14,6 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if session["csrf_token"] != request.form["csrf_token"]:
-            abort(403)
 
     if users.login(username, password):
         return redirect("/")

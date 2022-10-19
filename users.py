@@ -11,7 +11,6 @@ def login(username, password):
     user = result.fetchone()
     if user==None:
         return False
-
     if check_password_hash(user.password, password):
         session["user_id"] = user.id
         session["username"] = user.username
@@ -41,6 +40,7 @@ def logout():
     del session["user_id"]
     del session["username"]
     del session["isteacher"]
+    del session["csrf_token"]
 
 
 def is_enrolled(course_id, user_id):
