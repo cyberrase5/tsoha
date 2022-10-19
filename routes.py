@@ -1,8 +1,7 @@
-from asyncio import tasks
-from ctypes import pointer
-from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session, abort
 import users, courses, tasks
+
+from app import app
 
 @app.route("/")
 def index():
@@ -15,6 +14,8 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
 
     if users.login(username, password):
         return redirect("/")
@@ -33,6 +34,8 @@ def register():
         password = request.form["password"]
         proof = request.form["teacherness"]
         role=int(request.form["type"])
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         pos = "opiskelija"
         bool = False
         if role == 1:
@@ -85,6 +88,8 @@ def createCourse():
     if request.method == "POST":
         name=request.form["name"]
         desc=request.form["description"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if courses.create_course(name, desc):
             return redirect("/")
         else:
@@ -103,6 +108,8 @@ def createText(id, week):
         return render_template("createText.html", teacher=users.is_course_teacher(id, users.user_id()), id=str(id), no=str(week))
     if request.method == "POST":
         content=request.form["text"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         tasks.create_text(id, week, content)
         return redirect("/course/" + str(id) + "/week/" + str(week))
 
@@ -115,6 +122,8 @@ def createQA(id, week):
         answer=request.form["answer"]
         tries=request.form["tries"]
         points=request.form["points"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if int(points) < 1:
             return render_template("error.html", message="Tehtävästä pitää saada vähintään yksi piste")
 
@@ -132,6 +141,8 @@ def createMultipleChoice(id, week):
         tries=request.form["tries"]
         points=request.form["points"]
         list=request.form.getlist("choice")
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
 
         if int(points) < 1:
             return render_template("error.html", message="Tehtävästä pitää saada vähintään yksi piste")
@@ -194,6 +205,8 @@ def QA():
         maxpoints=request.form["maxpoints"]
         id=request.form["id"]
         week=request.form["week"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if tries >= maxtries:
             return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
 
@@ -216,6 +229,8 @@ def MC():
         maxpoints=request.form["maxpoints"]
         id=request.form["course_id"]
         week=request.form["week"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
 
         if tries >= maxtries:
             return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
@@ -227,6 +242,8 @@ def MC():
             return render_template("correct.html", points=maxpoints, id=id, week=week)
         else:
             return render_template("error.html", message="Väärä vastaus", id=id, week=week)
+
+    return render_template("error.html", message="Pylint return", id=id, week=week)
 
 
 @app.route("/error")

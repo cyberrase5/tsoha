@@ -19,6 +19,7 @@
     <input type="text" name="tries"></p><br>
     Kuinka monta pistettä tehtävästä saa? (vähintään 1 piste):<br>
     <input type="text" name="points"></p><br><br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Luo monivalintatehtävä">
     </form>
 {% endif %}

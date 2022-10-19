@@ -4,6 +4,7 @@
     <p>Kirjoita tiivis yksittäinen kokonaisuus:<br>
         <textarea name="text" rows="4" cols="50"></textarea><br>
         <input type="submit" value="Lisää teksti"><br><br>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <a href="/course/{{id}}/week/{{no}}">Takaisin</a>
 </form>
 {% endif %}

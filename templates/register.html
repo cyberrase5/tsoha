@@ -17,5 +17,6 @@
     <br><br>
     Jos olet oikeasti opettaja, todista se: (opiskelija voi jättää tyhjäksi)<br>
     <input type="text" name="teacherness"><br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Lähetä">
 </form>

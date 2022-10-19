@@ -23,6 +23,8 @@
         <input type="hidden" name="maxpoints" value="{{ task.maxpoints }}">
         <input type="hidden" name="id" value="{{ no }}">
         <input type="hidden" name="week" value="{{ week }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        
 </form>
 <hr>
 {% endfor %}
@@ -50,6 +52,7 @@
     <input type="hidden" name="tries" value="{{ MC_list[4*i+3][6] }}">
     <input type="hidden" name="maxtries" value="{{ MC_list[4*i+3][4] }}">
     <input type="hidden" name="maxpoints" value="{{ MC_list[4*i+3][3] }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     
 </form>
 <hr>
