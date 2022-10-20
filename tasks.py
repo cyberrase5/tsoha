@@ -58,7 +58,7 @@ def add_submissions_old(course_id, user_id):
     db.session.commit()
 
 def add_submissions_new(course_id, task_id):
-    list = courses.participants_ids(course_id)
+    list = courses.participants_IDs(course_id)
 
     for id in list:
         sql = "INSERT INTO submissions (course_id, user_id, task_id, tries, points) VALUES (:cid, :uid, :tid, 0, 0)"
