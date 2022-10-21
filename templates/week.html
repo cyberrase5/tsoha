@@ -1,15 +1,19 @@
-{% if session.username %}
-<a href="/course/{{ id }}">Kurssisivulle</a><br><br>
+{% if not enrolled %}
+Liity kurssille päästäksesi alueelle<br>
+<a href="/course/{{ cid }}">Kurssisivulle</a>
+{% endif %}
+{% if session.username and enrolled %}
+<a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
 <b>{{ coursename }}</b> viikko {{ no }}<br><br>
 {% if teacher %}
-<a href="/course/{{ id }}/week/{{ no }}/createText">Luo uusi teksti</a>
-<a href="/course/{{ id }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
-<a href="/course/{{ id }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br><br>
+<a href="/course/{{ cid }}/week/{{ no }}/createText">Luo uusi teksti</a>
+<a href="/course/{{ cid }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
+<a href="/course/{{ cid }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br><br>
 {% endif %}
-<a href="/course/{{ id }}/week/{{ no }}/tasks">Tehtävät</a>
+<a href="/course/{{ cid }}/week/{{ no }}/tasks">Tehtävät</a>
 <hr>
-{% for text in list %}
-<p>{{ text.content }}</p>
+{% for text in text_list %}
+<div style="width:1200px"> {{ text.content }} </div>
 <hr>
 {% endfor %}
 {% else %}

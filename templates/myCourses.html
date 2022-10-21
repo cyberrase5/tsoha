@@ -1,7 +1,7 @@
 {% if session.username %}
 <a href="/">Etusivulle</a><br><br>
 <hr>
-{% for course in list %}
+{% for course in course_list %}
 <a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br>
 <hr><br><br>
 {% endfor %}

@@ -1,6 +1,6 @@
 {% if session.username %}
-<a href="/course/{{ id }}">Kurssisivulle</a><br><br>
-{% for data in list %}
+<a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
+{% for data in points_list %}
 {{ data.question }}   |   {{ data.points }} / {{ data.maxpoints }}<br>
 {% endfor %}
 <br>Yhteenveto: {{ summary[0][0] }} / {{ summary[0][1] }}

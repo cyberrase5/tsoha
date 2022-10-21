@@ -1,6 +1,6 @@
 {% if session.username %}
 {% if teacher %}
-<form action="/course/{{id}}/week/{{no}}/createMultipleChoice" method="POST">
+<form action="/course/{{cid}}/week/{{no}}/createMultipleChoice" method="POST">
     <p>Luo uusi monivalintatehtävä:<br><br>
     <p>Kysymys:<br>
     <input type="text" name="question"></p>

@@ -1,3 +1,5 @@
+<!-- This will be hard to read, more info in tasks_list functions -->
+
 {% if session.username %}
 <a href="/course/{{ no }}/week/{{ week }}">Kurssisivulle</a><br><br>
 <b>{{ coursename }}</b> viikko {{ week }} tehtävät<br><br>
@@ -7,7 +9,7 @@
     <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
         <br>Yrityksiä: {{ task[5] }} / {{ task[4] }}
     <p>Vastaus<br>
-        <input type="text" name="answer">
+        <input type="text" name="answer" maxlength="50">
     </p>
     {% if task[6] != task[3] and task.tries < task.max_tries %} <input type="submit" value="Lähetä vastaus">
         {% endif %}<br>
@@ -18,9 +20,6 @@
         Olet yrittänyt tehtävää liian monta kertaa
         {% endif %}<br>
         <input type="hidden" name="task_id" value="{{ task.id }}">
-        <input type="hidden" name="tries" value="{{ task[5] }}">
-        <input type="hidden" name="maxtries" value="{{ task[4] }}">
-        <input type="hidden" name="maxpoints" value="{{ task.maxpoints }}">
         <input type="hidden" name="id" value="{{ no }}">
         <input type="hidden" name="week" value="{{ week }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
@@ -31,7 +30,7 @@
 <hr>
 {% for i in range(len) %}
 <form action="/MC" method="POST">
-    {{ MC_list[4*i+0][2]}}<br><br>
+    {{ MC_list[4*i+0][2]}} ({{ MC_list[4*i+0][3] }}pts) <br><br>
     Yrityksiä: {{ MC_list[4*i+3][6] }} / {{ MC_list[4*i+3][4] }}<br><br>
     <input type="radio" name="choice" value="{{ MC_list[4*i+0][1] }}">{{ MC_list[4*i+0][5] }}<br>
     <input type="radio" name="choice" value="{{ MC_list[4*i+1][1] }}">{{ MC_list[4*i+1][5] }}<br>
@@ -49,9 +48,6 @@
     <input type="hidden" name="task_id" value="{{ MC_list[4*i+3][0] }}">
     <input type="hidden" name="course_id" value="{{ no }}">
     <input type="hidden" name="week" value="{{ week }}">
-    <input type="hidden" name="tries" value="{{ MC_list[4*i+3][6] }}">
-    <input type="hidden" name="maxtries" value="{{ MC_list[4*i+3][4] }}">
-    <input type="hidden" name="maxpoints" value="{{ MC_list[4*i+3][3] }}">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     
 </form>

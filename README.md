@@ -16,9 +16,17 @@ En ole tarkastanut ihan kaikista sivuista, ettei väärät käyttäjät pääse 
 Python ja HTML eivät olleet entuudestaan tuttuja, joten koodi näyttää nyt miltä näyttää, pitää siistiä ennen lopullista palautusta
 
 TODO:
-- syötteiden pituuden tarkastaminen
-- miten saan liian pitkät tekstit useammalle riville?
-- CSRF token formeihin
-- kommentoi oudot kohdat (tasks.html)
-- python koodin siistiminen (pylint, lue ohjeet yms.)
-- HTML-siistiminen
+- syötteiden pituuden tarkastaminen (tehty kai)
+- kommentoi oudot kohdat (tasks.html) (tehty kai)
+- python koodin siistiminen (pylint, lue ohjeet yms.) (tehty kai)
+- HTML-siistiminen (en jaksa)
+
+Ominaisuuksien testaamista:
+
+- luo kurssi
+    - vain opettaja voi (testattu osoiterivin kautta kirjaantumattomana ja opiskelijana)
+- tehtävien lisääminen
+    - vain kurssin opettaja voi (testattu osoiteriviltä muuna opettajana, opiskelijana ja epäkirjautuneena)
+- kurssin poistaminen
+    - vain kurssin opettaja voi (testattu osoiteriviltä muuna opettajana, opiskelijana ja epäkirjautuneena)
+- 
