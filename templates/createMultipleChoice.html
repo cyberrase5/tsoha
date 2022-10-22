@@ -1,5 +1,9 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
 {% if teacher %}
+<br>
+<div class="loginForm">
 <form action="/course/{{cid}}/week/{{no}}/createMultipleChoice" method="POST">
     <p>Luo uusi monivalintatehtävä:<br><br>
     <p>Kysymys:<br>
@@ -22,6 +26,7 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Luo monivalintatehtävä">
     </form>
+</div>
 {% endif %}
 {% if not teacher %}
 Sinulla ei ole oikeuksia luoda tehtäviä<br>
@@ -31,3 +36,5 @@ Sinulla ei ole oikeuksia luoda tehtäviä<br>
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

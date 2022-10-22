@@ -283,7 +283,7 @@ def qa_handler():
         user_id = users.user_id()
         tasks.add_submission_try(task_id, user_id)
 
-        if answer == correct_answer:
+        if answer.lower() == correct_answer.lower():
             tasks.update_points(task_id, user_id, stats[1])
             return render_template("correct.html", points=stats[1], cid=course_id, week=week)
 

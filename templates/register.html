@@ -1,3 +1,6 @@
+{% extends "layout.html" %} {% block content %}
+<br>
+<div class="loginForm box reg">
 <form action="/register" method="POST">
     Etunimi:
     <input type="text" name="firstname" , maxlength="50"> (max. 50 merkkiä)
@@ -19,3 +22,6 @@
     <input type="text" name="teacherness"><br>
     <input type="submit" value="Lähetä">
 </form>
+</div>
+
+{% endblock %}

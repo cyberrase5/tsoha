@@ -1,11 +1,18 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
-<a href="/">Etusivulle</a><br><br>
-<hr>
+<br>
+<div class="course">
+<a href="/">Etusivulle</a>
+</div><br><br>
 {% for course in course_list %}
-<a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br>
-<hr><br><br>
+<div class="course">
+<a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br><br>
+</div>
 {% endfor %}
 {% else %}
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

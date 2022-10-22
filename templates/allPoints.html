@@ -1,8 +1,14 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
-<a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
+<div class="loginForm">
+<a href="/course/{{ cid }}">Kurssisivulle</a>
+</div><br><br>
 {% if teacher %}
 {% for data in points_list %}
-{{ data.firstname }} {{ data.lastname }}   {{ data[2] }} / {{ maxpoints }}<br><br>
+<div class="loginForm box">
+{{ data.firstname }} {{ data.lastname }} {{ data[2] }} / {{ maxpoints }}<br><br>
+</div>
 {% endfor %}
 {% endif %}
 {% if not teacher %}
@@ -12,3 +18,5 @@ Tämä alue on vain kurssin opettajalle<br>
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

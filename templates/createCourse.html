@@ -1,4 +1,7 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.isteacher %}
+<div class="loginForm">
 <form action="/createCourse" method="POST">
 <p>Uuden kurssin nimi:<br>
 <input type="text" name="name"></p><br>
@@ -8,7 +11,10 @@
 <input type="submit" value="Luo kurssi"><br><br>
 <a href="/">Etusivulle</a>
 </form>
+</div>
 {% else %}
 Sinulla ei ole oikeuksia luoda kursseja<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

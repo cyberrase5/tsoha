@@ -1,10 +1,16 @@
+{% extends "layout.html" %} {% block content %}
+
 <!-- This will be hard to read, more info in tasks_list functions -->
 
 {% if session.username %}
-<a href="/course/{{ no }}/week/{{ week }}">Kurssisivulle</a><br><br>
-<b>{{ coursename }}</b> viikko {{ week }} tehtävät<br><br>
+<br>
+<div class="loginForm">
+    <a href="/course/{{ no }}/week/{{ week }}">Kurssisivulle</a><br><br>
+    <b>{{ coursename }}</b> viikko {{ week }} tehtävät
+</div><br>
 <hr>
 {% for task in QA_list %}
+<div class="loginForm">
 <form action="/QA" method="POST">
     <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
         <br>Yrityksiä: {{ task[5] }} / {{ task[4] }}
@@ -23,12 +29,14 @@
         <input type="hidden" name="id" value="{{ no }}">
         <input type="hidden" name="week" value="{{ week }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        
+
 </form>
+</div>
 <hr>
 {% endfor %}
 <hr>
 {% for i in range(len) %}
+<div class="loginForm">
 <form action="/MC" method="POST">
     {{ MC_list[4*i+0][2]}} ({{ MC_list[4*i+0][3] }}pts) <br><br>
     Yrityksiä: {{ MC_list[4*i+3][6] }} / {{ MC_list[4*i+3][4] }}<br><br>
@@ -36,24 +44,27 @@
     <input type="radio" name="choice" value="{{ MC_list[4*i+1][1] }}">{{ MC_list[4*i+1][5] }}<br>
     <input type="radio" name="choice" value="{{ MC_list[4*i+2][1] }}">{{ MC_list[4*i+2][5] }}<br>
     <input type="radio" name="choice" value="{{ MC_list[4*i+3][1] }}">{{ MC_list[4*i+3][5] }}<br><br>
-    {% if MC_list[4*i+3][7] != MC_list[4*i+3][3] and MC_list[4*i+3][6] < MC_list[4*i+3][4] %}
-    <input type="submit" value="Lähetä vastaus"><br><br>
-    {% endif %}
-    {% if MC_list[4*i+3][7] == MC_list[4*i+3][3]%}
-    Olet jo ratkaissut tehtävän
-    {% endif %}
-    {% if MC_list[4*i+3][6] >= MC_list[4*i+3][4] and MC_list[4*i+3][7] != MC_list[4*i+3][3] %}
-    Olet yrittänyt tehtävää liian monta kertaa
-    {% endif %}
-    <input type="hidden" name="task_id" value="{{ MC_list[4*i+3][0] }}">
-    <input type="hidden" name="course_id" value="{{ no }}">
-    <input type="hidden" name="week" value="{{ week }}">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    
+    {% if MC_list[4*i+3][7] != MC_list[4*i+3][3] and MC_list[4*i+3][6] < MC_list[4*i+3][4] %} <input type="submit"
+        value="Lähetä vastaus"><br><br>
+        {% endif %}
+        {% if MC_list[4*i+3][7] == MC_list[4*i+3][3]%}
+        Olet jo ratkaissut tehtävän
+        {% endif %}
+        {% if MC_list[4*i+3][6] >= MC_list[4*i+3][4] and MC_list[4*i+3][7] != MC_list[4*i+3][3] %}
+        Olet yrittänyt tehtävää liian monta kertaa
+        {% endif %}
+        <input type="hidden" name="task_id" value="{{ MC_list[4*i+3][0] }}">
+        <input type="hidden" name="course_id" value="{{ no }}">
+        <input type="hidden" name="week" value="{{ week }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
 </form>
+</div>
 <hr>
 {% endfor %}
 {% else %}
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

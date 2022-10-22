@@ -1,22 +1,31 @@
+{% extends "layout.html" %} {% block content %}
+
+{% if session.username %}
 {% if not enrolled %}
 Liity kurssille päästäksesi alueelle<br>
 <a href="/course/{{ cid }}">Kurssisivulle</a>
 {% endif %}
-{% if session.username and enrolled %}
-<a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
-<b>{{ coursename }}</b> viikko {{ no }}<br><br>
-{% if teacher %}
-<a href="/course/{{ cid }}/week/{{ no }}/createText">Luo uusi teksti</a>
-<a href="/course/{{ cid }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
-<a href="/course/{{ cid }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br><br>
+{% if enrolled %}
+<br>
+<div class="course">
+    <a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
+    <b>{{ coursename }}</b> viikko {{ no }}<br><br>
+    {% if teacher %}
+    <a href="/course/{{ cid }}/week/{{ no }}/createText">Luo uusi teksti</a>
+    <a href="/course/{{ cid }}/week/{{ no }}/createQA">Luo uusi tehtävä</a>
+    <a href="/course/{{ cid }}/week/{{ no }}/createMultipleChoice">Luo uusi monivalintatehtävä</a><br><br>
 {% endif %}
 <a href="/course/{{ cid }}/week/{{ no }}/tasks">Tehtävät</a>
-<hr>
+</div><br><br>
 {% for text in text_list %}
-<div style="width:1200px"> {{ text.content }} </div>
-<hr>
+<div class="course box">
+    <div style="width:1200px"> {{ text.content }} </div><br><br>
+</div>
 {% endfor %}
+{% endif %}
 {% else %}
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

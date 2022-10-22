@@ -1,10 +1,20 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
-<a href="/course/{{ cid }}">Kurssisivulle</a><br><br>
+<div class="loginForm">
+    <a href="/course/{{ cid }}">Kurssisivulle</a>
+</div><br><br>
 {% for data in points_list %}
-{{ data.question }}   |   {{ data.points }} / {{ data.maxpoints }}<br>
-{% endfor %}
-<br>Yhteenveto: {{ summary[0][0] }} / {{ summary[0][1] }}
+<div class="loginForm box">
+    {{ data.question }} | {{ data.points }} / {{ data.maxpoints }}<br><br>
+    {% endfor %}
+</div>
+<div class="loginForm">
+<b>Yhteenveto: {{ summary[0][0] }} / {{ summary[0][1] }}</b>
+</div>
 {% else %}
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

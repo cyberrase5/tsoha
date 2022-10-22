@@ -1,32 +1,46 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
-<a href="/">Etusivulle</a>
-{% if not enrolled %}
-<a href="/joinCourse/{{ cid }}">Liity kurssille</a><br>
-{% endif %}
-<br><b>{{ data.coursename }}</b><br>
-{{ data.description }}<br><br>
-Kurssilla on jaossa {{ points }} pistettä {{taskcount }} tehtävästä {{ parts }}:lle osallistujalle<br><br>
-{% if enrolled %}
-<a href="/course/{{ cid }}/myPoints">Omat pisteet</a>
-{% if isteacher %}
-<a href="/course/{{ cid }}/allPoints">Kaikki pisteet</a>
-{% endif %}
+<br>
+<div class="loginForm">
+    <a href="/">Etusivulle</a>
+    {% if not enrolled %}
+    <br><br>
+    <a href="/joinCourse/{{ cid }}">Liity kurssille</a>
+    {% endif %}
+</div>
+<div class="loginForm">
+    <br><b>{{ data.coursename }}</b><br>
+    {{ data.description }}<br><br>
+    Kurssilla on jaossa {{ points }} pistettä {{taskcount }} tehtävästä {{ parts }}:lle osallistujalle<br><br>
+    {% if enrolled %}
+    <a href="/course/{{ cid }}/myPoints">Omat pisteet</a>
+    {% if isteacher %}
+    <a href="/course/{{ cid }}/allPoints">Kaikki pisteet</a>
+    {% endif %}
+</div>
 <hr>
-<a href="/course/{{ cid }}/week/1">Viikko 1</a><br><br>
-<a href="/course/{{ cid }}/week/2">Viikko 2</a><br><br>
-<a href="/course/{{ cid }}/week/3">Viikko 3</a><br><br>
-<a href="/course/{{ cid }}/week/4">Viikko 4</a><br><br>
-<a href="/course/{{ cid }}/week/5">Viikko 5</a><br><br>
-<a href="/course/{{ cid }}/week/6">Viikko 6</a><br>
+<div class="loginForm">
+    <a href="/course/{{ cid }}/week/1">Viikko 1</a><br><br>
+    <a href="/course/{{ cid }}/week/2">Viikko 2</a><br><br>
+    <a href="/course/{{ cid }}/week/3">Viikko 3</a><br><br>
+    <a href="/course/{{ cid }}/week/4">Viikko 4</a><br><br>
+    <a href="/course/{{ cid }}/week/5">Viikko 5</a><br><br>
+    <a href="/course/{{ cid }}/week/6">Viikko 6</a><br>
+</div>
 <hr>
 {% endif %}
-{% if enrolled and not isteacher %}
-<a href="/course/{{ cid }}/leave">Poistu kurssilta</a><br><br>
+<div class="loginForm">
+    {% if enrolled and not isteacher %}
+    <a href="/course/{{ cid }}/leave">Poistu kurssilta</a><br>
+    {% endif %}
+    {% if isteacher %}
+    <a href="/course/{{ cid }}/delete">Poista kurssi</a>
+    {% endif %}
+    {% else %}
+    Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
-{% if isteacher %}
-<a href="/course/{{ cid }}/delete">Poista kurssi</a>
-{% endif %}
-{% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
-{% endif %}
+
+{% endblock %}

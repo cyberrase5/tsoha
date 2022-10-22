@@ -1,5 +1,9 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
 {% if teacher %}
+<br>
+<div class="loginForm">
 <form action="/course/{{cid}}/week/{{no}}/createText" method="POST">
     <p>Kirjoita tiivis yksittäinen kokonaisuus:<br>
         <textarea name="text" rows="4" cols="50"></textarea><br>
@@ -7,6 +11,7 @@
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <a href="/course/{{cid}}/week/{{no}}">Takaisin</a>
 </form>
+</div>
 {% endif %}
 {% if not teacher %}
 Sinulla ei ole oikeuksia luoda materiaaleja<br>
@@ -16,3 +21,5 @@ Sinulla ei ole oikeuksia luoda materiaaleja<br>
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}

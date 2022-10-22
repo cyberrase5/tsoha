@@ -1,7 +1,14 @@
-Tunnus luotu!<br>
-Nimi: {{ fname }} {{ lname }}<br>
-Käyttäjätunnus: {{ uname }} <br>
-Salasana: salainen<br>
-Rooli: {{ role }}
+{% extends "layout.html" %} {% block content %}
+<div class="loginForm box">
+    Tunnus luotu!<br>
+    Nimi: {{ fname }} {{ lname }}<br>
+    Käyttäjätunnus: {{ uname }} <br>
+    Salasana: salainen<br>
+    Rooli: {{ role }}
+</div>
 <br><br>
+<div class="loginForm">
 <a href="/">Etusivulle</a>
+</div>
+
+{% endblock %}

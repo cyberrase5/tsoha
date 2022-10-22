@@ -1,6 +1,9 @@
-<title>Etusivu</title>
-<h1>Moodle 2.0</h1>
+{% extends "layout.html" %} {% block content %}
+
+
+<title>Etusivu</title><br>
 {% if session.username %}
+<div class="loginForm">
 <p>Olet kirjautunut tunnuksella {{ session.username }}</p><br><br>
 {% if session.isteacher %}
 <a href="/createCourse">Luo uusi kurssi</a><br><br>
@@ -8,7 +11,12 @@
 <a href="/allCourses">Kaikki kurssit</a><br><br>
 <a href="/myCourses">Omat kurssit</a><br><br>
 <a href="/logout">Kirjaudu ulos</a>
+</div>
 {% else %}
-<a href="/login">Kirjaudu sisään</a><br><br>
-<a href="/register">Rekisteröidy</a>
+<div class="loginForm">
+    <a href="/login">Kirjaudu sisään</a><br><br>
+    <a href="/register">Rekisteröidy</a>
+</div>
 {% endif %}
+
+{% endblock %}

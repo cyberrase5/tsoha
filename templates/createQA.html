@@ -1,19 +1,25 @@
+{% extends "layout.html" %} {% block content %}
+
 {% if session.username %}
 {% if teacher %}
-<form action="/course/{{cid}}/week/{{no}}/createQA" method="POST">
-    <p>Luo uusi tehtävä:<br><br>
-    <p>Kysymys:<br>
-    <textarea name="question" rows="2" cols="50"></textarea><br>
-    <br><br>
-    <p>Oikea vastaus (max. 50 merkkiä)<br>
-    <input type="text" name="answer"></p><br><br>
-    Kuinka monta kertaa tehtävää saa yrittää?:<br>
-    <input type="text" name="tries"></p><br>
-    Kuinka monta pistettä tehtävästä saa? (vähintään 1 piste):<br>
-    <input type="text" name="points"></p><br><br>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    <input type="submit" value="Luo tehtävä">
+<br>
+<div class="loginForm">
+    <form action="/course/{{cid}}/week/{{no}}/createQA" method="POST">
+        <p>Luo uusi tehtävä:<br><br>
+        <p>Kysymys:<br>
+            <textarea name="question" rows="2" cols="50"></textarea><br>
+            <br><br>
+        <p>Oikea vastaus (max. 50 merkkiä)<br>
+            <input type="text" name="answer">
+        </p><br><br>
+        Kuinka monta kertaa tehtävää saa yrittää?:<br>
+        <input type="text" name="tries"></p><br>
+        Kuinka monta pistettä tehtävästä saa? (vähintään 1 piste):<br>
+        <input type="text" name="points"></p><br><br>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="submit" value="Luo tehtävä">
     </form>
+</div>
 {% endif %}
 {% if not teacher %}
 Sinulla ei ole oikeuksia luoda tehtäviä<br>
@@ -23,3 +29,5 @@ Sinulla ei ole oikeuksia luoda tehtäviä<br>
 Kirjaudu sisään päästäksesi alueelle<br>
 <a href="/">Etusivulle</a>
 {% endif %}
+
+{% endblock %}
