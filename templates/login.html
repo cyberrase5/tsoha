@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Kirjaudu sisään</title>
 
 {% if session.username %}
 Olet jo kirjautunut sisään<br>
@@ -6,13 +7,15 @@ Olet jo kirjautunut sisään<br>
 {% else %}
 <br>
 <div class="loginForm">
-<form action="/login" method="POST">
-<p>Tunnus:<br>
-<input type="text" name="username"></p>
-<p>Salasana:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Kirjaudu">
-</form>
+    <form action="/login" method="POST">
+        <p>Tunnus:<br>
+            <input type="text" name="username">
+        </p>
+        <p>Salasana:<br>
+            <input type="password" name="password">
+        </p>
+        <input type="submit" value="Kirjaudu">
+    </form>
 </div>
 {% endif %}
 

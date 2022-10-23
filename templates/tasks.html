@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Tehtävät</title>
 
 <!-- This will be hard to read, more info in tasks_list functions -->
 
@@ -9,62 +10,72 @@
     <b>{{ coursename }}</b> viikko {{ week }} tehtävät
 </div><br>
 <hr>
+<!-- Lists question & answer tasks -->
+<!--  task[3] = max points from task, [4] = max tries allowed, [5] = current tries, [6] = how many points you have now   -->
 {% for task in QA_list %}
 <div class="loginForm">
-<form action="/QA" method="POST">
-    <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
-        <br>Yrityksiä: {{ task[5] }} / {{ task[4] }}
-    <p>Vastaus<br>
-        <input type="text" name="answer" maxlength="50">
-    </p>
-    {% if task[6] != task[3] and task.tries < task.max_tries %} <input type="submit" value="Lähetä vastaus">
-        {% endif %}<br>
-        {% if task[6] == task[3] %}
-        Olet ratkaissut tehtävän
-        {% endif %}<br>
-        {% if task.tries >= task.max_tries and task[6] != task[3] %}
-        Olet yrittänyt tehtävää liian monta kertaa
-        {% endif %}<br>
-        <input type="hidden" name="task_id" value="{{ task.id }}">
-        <input type="hidden" name="id" value="{{ no }}">
-        <input type="hidden" name="week" value="{{ week }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <form action="/QA" method="POST">
+        <p> {{ task.question }} ({{task.maxpoints}}pts) <br>
+            <br>Yrityksiä: {{ task[5] }} / {{ task[4] }}
+        <p>Vastaus<br>
+            <input type="text" name="answer" maxlength="50">
+        </p> <!-- if you don't have full points and have tries left, display answer button -->
+        {% if task[6] != task[3] and task.tries < task.max_tries %} <input type="submit" value="Lähetä vastaus">
+            {% endif %}<br>
+            {% if task[6] == task[3] %}
+            Olet ratkaissut tehtävän <!-- if you have maxpoints, no need for submit button -->
+            {% endif %}<br>
+            <!-- if you have spent all your tries and don't have maxpoints, display too many tries text-->
+            {% if task.tries >= task.max_tries and task[6] != task[3] %}
+            Olet yrittänyt tehtävää liian monta kertaa
+            {% endif %}<br>
+            <input type="hidden" name="task_id" value="{{ task.id }}">
+            <input type="hidden" name="id" value="{{ no }}">
+            <input type="hidden" name="week" value="{{ week }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
-</form>
+    </form>
 </div>
 <hr>
 {% endfor %}
 <hr>
+<!-- Lists multiple choice tasks -->
+<!-- task[3] = max points from task, [4] = max tries allowed, [6] = current tries, [7] = how many points you have now -->
+<!-- 4*i+0 etc. is a way to get the choices correctly four at a time, 0123, 4567 etc. (recall that MC_list is sorted by choice id) -->
 {% for i in range(len) %}
 <div class="loginForm">
-<form action="/MC" method="POST">
-    {{ MC_list[4*i+0][2]}} ({{ MC_list[4*i+0][3] }}pts) <br><br>
-    Yrityksiä: {{ MC_list[4*i+3][6] }} / {{ MC_list[4*i+3][4] }}<br><br>
-    <input type="radio" name="choice" value="{{ MC_list[4*i+0][1] }}">{{ MC_list[4*i+0][5] }}<br>
-    <input type="radio" name="choice" value="{{ MC_list[4*i+1][1] }}">{{ MC_list[4*i+1][5] }}<br>
-    <input type="radio" name="choice" value="{{ MC_list[4*i+2][1] }}">{{ MC_list[4*i+2][5] }}<br>
-    <input type="radio" name="choice" value="{{ MC_list[4*i+3][1] }}">{{ MC_list[4*i+3][5] }}<br><br>
-    {% if MC_list[4*i+3][7] != MC_list[4*i+3][3] and MC_list[4*i+3][6] < MC_list[4*i+3][4] %} <input type="submit"
-        value="Lähetä vastaus"><br><br>
-        {% endif %}
-        {% if MC_list[4*i+3][7] == MC_list[4*i+3][3]%}
-        Olet jo ratkaissut tehtävän
-        {% endif %}
-        {% if MC_list[4*i+3][6] >= MC_list[4*i+3][4] and MC_list[4*i+3][7] != MC_list[4*i+3][3] %}
-        Olet yrittänyt tehtävää liian monta kertaa
-        {% endif %}
-        <input type="hidden" name="task_id" value="{{ MC_list[4*i+3][0] }}">
-        <input type="hidden" name="course_id" value="{{ no }}">
-        <input type="hidden" name="week" value="{{ week }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <form action="/MC" method="POST">
+        {{ MC_list[4*i+0][2]}} ({{ MC_list[4*i+0][3] }}pts) <br><br>
+        Yrityksiä: {{ MC_list[4*i+3][6] }} / {{ MC_list[4*i+3][4] }}<br><br>
+        <input type="radio" name="choice" value="{{ MC_list[4*i+0][1] }}">{{ MC_list[4*i+0][5] }}<br>
+        <input type="radio" name="choice" value="{{ MC_list[4*i+1][1] }}">{{ MC_list[4*i+1][5] }}<br>
+        <input type="radio" name="choice" value="{{ MC_list[4*i+2][1] }}">{{ MC_list[4*i+2][5] }}<br>
+        <input type="radio" name="choice" value="{{ MC_list[4*i+3][1] }}">{{ MC_list[4*i+3][5] }}<br><br>
+        <!-- if you don't have full points and have tries left, display answer button -->
+        {% if MC_list[4*i+3][7] != MC_list[4*i+3][3] and MC_list[4*i+3][6] < MC_list[4*i+3][4] %} <input type="submit"
+            value="Lähetä vastaus"><br><br>
+            {% endif %}
+            {% if MC_list[4*i+3][7] == MC_list[4*i+3][3] %}
+            Olet jo ratkaissut tehtävän <!-- if you have maxpoints, no need for submit button -->
+            {% endif %}
+            <!-- if you have spent all your tries and don't have maxpoints, display too many tries text-->
+            {% if MC_list[4*i+3][6] >= MC_list[4*i+3][4] and MC_list[4*i+3][7] != MC_list[4*i+3][3] %}
+            Olet yrittänyt tehtävää liian monta kertaa
+            {% endif %}
+            <input type="hidden" name="task_id" value="{{ MC_list[4*i+3][0] }}">
+            <input type="hidden" name="course_id" value="{{ no }}">
+            <input type="hidden" name="week" value="{{ week }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
-</form>
+    </form>
 </div>
 <hr>
 {% endfor %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

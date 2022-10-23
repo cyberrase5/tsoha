@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Luo monivalintatehtävä</title>
 
 {% if session.username %}
 {% if teacher %}
@@ -29,12 +30,16 @@
 </div>
 {% endif %}
 {% if not teacher %}
-Sinulla ei ole oikeuksia luoda tehtäviä<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Sinulla ei ole oikeuksia luoda tehtäviä tälle kurssille<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Omat kurssit</title>
 
 {% if session.username %}
 <br>
@@ -11,8 +12,10 @@
 </div>
 {% endfor %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

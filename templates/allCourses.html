@@ -1,18 +1,21 @@
 {% extends "layout.html" %} {% block content %}
+<title>Kaikki kurssit</title>
 
 {% if session.username %}
 <br>
 <div class="course">
-<a href="/">Etusivulle</a>
+    <a href="/">Etusivulle</a>
 </div><br><br>
 {% for course in course_list %}
 <div class="course">
-<a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br><br>
+    <a href="/course/{{ course.id }}">{{ course.coursename }}</a> <br><br>
 </div>
 {% endfor %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

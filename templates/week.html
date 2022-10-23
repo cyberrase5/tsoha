@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Viikko {{no}}</title>
 
 {% if session.username %}
 {% if not enrolled %}
@@ -24,8 +25,10 @@ Liity kurssille päästäksesi alueelle<br>
 {% endfor %}
 {% endif %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

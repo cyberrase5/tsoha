@@ -1,3 +1,4 @@
+'''launches app'''
 from os import getenv
 from flask import Flask
 

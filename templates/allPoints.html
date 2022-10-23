@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Osallistujat ja pisteet</title>
 
 {% if session.username %}
 <div class="loginForm">
@@ -15,8 +16,10 @@
 Tämä alue on vain kurssin opettajalle<br>
 {% endif %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

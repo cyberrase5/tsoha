@@ -53,7 +53,7 @@ def qa_tasks_list(course_id, week, user_id): # type 0
     # to answer, how many points they have etc.
     sql = "SELECT T.id, T.question, T.correctanswer, T.maxpoints, T.max_tries, S.tries, S.points  "\
         "FROM tasks T, submissions S WHERE T.course_id=:id AND T.week=:week "\
-            "AND T.type=0 AND S.task_id=T.id AND S.user_id=:uid"
+            "AND T.type=0 AND S.task_id=T.id AND S.user_id=:uid ORDER BY T.id"
     result = db.session.execute(sql, {"id":course_id, "week":week, "uid":user_id})
     return result.fetchall()
 

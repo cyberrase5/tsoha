@@ -1,20 +1,26 @@
 {% extends "layout.html" %} {% block content %}
 
+<title>Luo kurssi</title>
+
 {% if session.isteacher %}
 <div class="loginForm">
-<form action="/createCourse" method="POST">
-<p>Uuden kurssin nimi:<br>
-<input type="text" name="name"></p><br>
-<p>Lyhyt kuvaus kurssista:<br>
-<input type="text" name="description"></p><br>
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-<input type="submit" value="Luo kurssi"><br><br>
-<a href="/">Etusivulle</a>
-</form>
+    <form action="/createCourse" method="POST">
+        <p>Uuden kurssin nimi:<br>
+            <input type="text" name="name">
+        </p><br>
+        <p>Lyhyt kuvaus kurssista:<br>
+            <input type="text" name="description">
+        </p><br>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="submit" value="Luo kurssi"><br><br>
+        <a href="/">Etusivulle</a>
+    </form>
 </div>
 {% else %}
-Sinulla ei ole oikeuksia luoda kursseja<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Sinulla ei ole oikeuksia luoda kursseja<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}

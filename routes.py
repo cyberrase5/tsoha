@@ -130,8 +130,8 @@ def week(course_id, week):
     text_list = tasks.week_texts(course_id, week)
     enrolled = users.is_enrolled(course_id, users.user_id())
 
-    return render_template("week.html", cid=course_id, coursename=name, no=week, 
-                            teacher=teacher, text_list=text_list, enrolled=enrolled)
+    return render_template("week.html", cid=course_id, coursename=name, no=week,
+                           teacher=teacher, text_list=text_list, enrolled=enrolled)
 
 
 @app.route("/course/<int:course_id>/week/<int:week>/createText", methods=["GET", "POST"])
@@ -277,7 +277,8 @@ def qa_handler():
         stats = tasks.tries_and_points(task_id)
         # [0] max tries, [1] points, [2] current tries
         if stats[2] >= stats[0]:
-            return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
+            return render_template("wrong.html", message="Olet vastannut liian monta kertaa, älä yritä huijata",
+                                   cid=course_id, week=week)
 
         correct_answer = tasks.correct_answer(task_id)
         user_id = users.user_id()
@@ -287,7 +288,7 @@ def qa_handler():
             tasks.update_points(task_id, user_id, stats[1])
             return render_template("correct.html", points=stats[1], cid=course_id, week=week)
 
-        return render_template("error.html", message="Väärä vastaus", id=course_id, week=week)
+        return render_template("wrong.html", message="Väärä vastaus", cid=course_id, week=week)
 
     return render_template("error.html", message="Tuntematon virhe")
 
@@ -306,13 +307,16 @@ def mc_handler():
         # [0] max tries, [1] points, [2] current tries
 
         if int(stats[2]) >= int(stats[0]):
-            return render_template("error.html", message="Olet vastannut liian monta kertaa, älä yritä huijata")
+            return render_template("wrong.html", message="Olet vastannut liian monta kertaa, älä yritä huijata",
+                                   cid=course_id, week=week)
 
         user_id = users.user_id()
         tasks.add_submission_try(task_id, user_id)
         if tasks.choice_text(answer_choice_id) == tasks.correct_answer(task_id):
             tasks.update_points(task_id, user_id, stats[1])
             return render_template("correct.html", points=stats[1], cid=course_id, week=week)
+
+        return render_template("wrong.html", message="Väärä vastaus", cid=course_id, week=week)
 
     return render_template("error.html", message="Tuntematon virhe")
 

@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>{{data.coursename}}</title>
 
 {% if session.username %}
 <br>
@@ -38,8 +39,10 @@
     <a href="/course/{{ cid }}/delete">Poista kurssi</a>
     {% endif %}
     {% else %}
-    Kirjaudu sisään päästäksesi alueelle<br>
-    <a href="/">Etusivulle</a>
+    <br>
+    <div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+        <a href="/">Etusivulle</a>
+    </div>
 </div>
 {% endif %}
 

@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<title>Luo opetusteksti</title>
 
 {% if session.username %}
 {% if teacher %}
@@ -14,12 +15,15 @@
 </div>
 {% endif %}
 {% if not teacher %}
-Sinulla ei ole oikeuksia luoda materiaaleja<br>
-<a href="/">Etusivulle</a>
-{% endif %}
+<br>
+<div class="loginForm">Sinulla ei ole oikeuksia luoda tekstejä tälle kurssille<br>
+    <a href="/">Etusivulle</a>
+</div>{% endif %}
 {% else %}
-Kirjaudu sisään päästäksesi alueelle<br>
-<a href="/">Etusivulle</a>
+<br>
+<div class="loginForm">Kirjaudu sisään päästäksesi alueelle<br>
+    <a href="/">Etusivulle</a>
+</div>
 {% endif %}
 
 {% endblock %}
