@@ -4,3 +4,5 @@ sys
 __pycache__
 .env
 \033\033
+.dockerignore
+fly.toml
