@@ -1,15 +1,18 @@
 {% extends "layout.html" %} {% block content %}
 <title>Etusivu</title><br>
 
+<div class="loginForm">
+    <b>ATTENTION: </b> For some reason the first database operation fails (worked fine in Heroku), but just retry and it works 
+</div>
 {% if session.username %}
 <div class="loginForm">
-<p>Olet kirjautunut tunnuksella {{ session.username }}</p><br><br>
-{% if session.isteacher %}
-<a href="/createCourse">Luo uusi kurssi</a><br><br>
-{% endif %}
-<a href="/allCourses">Kaikki kurssit</a><br><br>
-<a href="/myCourses">Omat kurssit</a><br><br>
-<a href="/logout">Kirjaudu ulos</a>
+    <p>Olet kirjautunut tunnuksella {{ session.username }}</p><br><br>
+    {% if session.isteacher %}
+    <a href="/createCourse">Luo uusi kurssi</a><br><br>
+    {% endif %}
+    <a href="/allCourses">Kaikki kurssit</a><br><br>
+    <a href="/myCourses">Omat kurssit</a><br><br>
+    <a href="/logout">Kirjaudu ulos</a>
 </div>
 {% else %}
 <div class="loginForm">
